@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Host: talhatariq.online
+
+Sitemap: https://talhatariq.online/sitemap.xml
+
