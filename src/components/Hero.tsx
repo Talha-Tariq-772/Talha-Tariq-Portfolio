@@ -9,7 +9,7 @@ import {
 } from 'lucide-react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import MyCV from './Talha_Tariq_CV.pdf';
-import profileImage from '../profile.jpg';
+import profileImage from '../profile1.png';
 
 const rotatingHighlights = [
   'AI Software Products',
@@ -19,13 +19,11 @@ const rotatingHighlights = [
 ];
 
 const Hero: React.FC = () => {
-  const [heroRef, isHeroVisible] = useScrollAnimation<HTMLSectionElement>(0.2);
+  const [heroRef, isHeroVisible] = useScrollAnimation<HTMLElement>(0.2);
   const [copyRef, isCopyVisible] = useScrollAnimation<HTMLDivElement>(0.25);
   const [mediaRef, isMediaVisible] = useScrollAnimation<HTMLDivElement>(0.2);
   const [activeHighlight, setActiveHighlight] = useState(0);
   const [spotlight, setSpotlight] = useState({ x: 50, y: 28 });
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
-
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) return;
@@ -42,17 +40,6 @@ const Hero: React.FC = () => {
     const x = ((event.clientX - rect.left) / rect.width) * 100;
     const y = ((event.clientY - rect.top) / rect.height) * 100;
     setSpotlight({ x, y });
-  };
-
-  const handleCardMove = (event: React.MouseEvent<HTMLDivElement>) => {
-    const rect = event.currentTarget.getBoundingClientRect();
-    const px = (event.clientX - rect.left) / rect.width;
-    const py = (event.clientY - rect.top) / rect.height;
-
-    setTilt({
-      x: (0.5 - py) * 10,
-      y: (px - 0.5) * 12,
-    });
   };
 
   return (
@@ -179,38 +166,13 @@ const Hero: React.FC = () => {
               isMediaVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
             }`}
           >
-            <div
-              className="hero-tilt-shell"
-              onMouseMove={handleCardMove}
-              onMouseLeave={() => setTilt({ x: 0, y: 0 })}
-              style={{
-                transform: `perspective(1100px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
-              }}
-            >
-              <div className="glass-panel soft-ring relative overflow-hidden p-5 sm:p-6">
-                <div aria-hidden className="hero-card-glow" />
-                <div className="absolute -right-14 -top-14 h-44 w-44 rounded-full bg-blue-500/25 blur-3xl" />
-                <div className="absolute -left-14 bottom-0 h-36 w-36 rounded-full bg-amber-400/25 blur-3xl" />
-
-                <div className="relative">
-                  <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-white/70 p-3 dark:bg-slate-900/60">
-                    <img
-                      src={profileImage}
-                      alt="Talha Tariq"
-                      className="h-full w-full object-contain object-center"
-                      loading="eager"
-                    />
-                  </div>
-
-                  <div className="animate-float absolute -left-3 top-6 rounded-xl border border-white/60 bg-white/85 px-3 py-2 text-xs font-semibold text-slate-700 shadow-lg shadow-slate-900/10 dark:border-slate-600/70 dark:bg-slate-900/85 dark:text-slate-200">
-                    Production-Focused Delivery
-                  </div>
-
-                  <div className="animate-float absolute -right-3 bottom-16 rounded-xl border border-white/60 bg-white/85 px-3 py-2 text-xs font-semibold text-slate-700 shadow-lg shadow-slate-900/10 dark:border-slate-600/70 dark:bg-slate-900/85 dark:text-slate-200">
-                    Web + AI Solutions
-                  </div>
-                </div>
-              </div>
+            <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl -mt-10">
+              <img
+                src={profileImage}
+                alt="Talha Tariq"
+                className="h-full w-full object-contain object-center"
+                loading="eager"
+              />
             </div>
 
             <div className="mt-4 grid grid-cols-3 gap-3 text-center">

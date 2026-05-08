@@ -305,7 +305,7 @@ const Skills: React.FC = () => {
         >
           {[
             { value: '15+', label: 'Projects Completed' },
-            { value: '4+', label: 'Years Experience' },
+            { value: '2+', label: 'Years Experience' },
             { value: 'MERN', label: 'Web Development Core' },
             { value: 'AI', label: 'Business System Integrations' },
           ].map((metric, index) => (
