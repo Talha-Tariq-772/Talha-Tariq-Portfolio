@@ -119,6 +119,15 @@ const projects: Project[] = [
   },
 ];
 
+const categoryGradient: Record<string, string> = {
+  'Web Development':
+    'linear-gradient(135deg, #1e1b4b 0%, #312e81 40%, #1e3a5f 100%)',
+  'AI Engineering':
+    'linear-gradient(135deg, #2e1065 0%, #4a1d96 40%, #1a1040 100%)',
+  'NLP Solutions':
+    'linear-gradient(135deg, #042f2e 0%, #134e4a 40%, #0c1a2e 100%)',
+};
+
 const getDomainLabel = (url?: string) => {
   if (!url) return '';
   try {
@@ -167,9 +176,14 @@ const Projects: React.FC = () => {
               onClick={() => setActiveCategory(category)}
               className={`rounded-full px-4 py-2 text-sm font-semibold transition duration-300 ${
                 activeCategory === category
-                  ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/25'
-                  : 'bg-white/80 text-slate-700 shadow-sm hover:-translate-y-0.5 hover:text-blue-700 dark:bg-slate-900/70 dark:text-slate-200 dark:hover:text-blue-300'
+                  ? 'text-white shadow-lg shadow-indigo-600/30'
+                  : 'bg-white/80 text-slate-700 shadow-sm hover:-translate-y-0.5 hover:text-indigo-700 dark:bg-slate-900/70 dark:text-slate-200 dark:hover:text-indigo-300'
               }`}
+              style={
+                activeCategory === category
+                  ? { background: 'linear-gradient(135deg, #6366f1, #8b5cf6)' }
+                  : {}
+              }
             >
               {category}
             </button>
@@ -188,14 +202,20 @@ const Projects: React.FC = () => {
               }`}
               style={{ transitionDelay: `${Math.min(index * 90, 420)}ms` }}
             >
-              <div className="relative h-52 overflow-hidden">
+              <div
+                className="relative h-56 overflow-hidden flex items-center justify-center"
+                style={{ background: categoryGradient[project.category] }}
+              >
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
-                  loading="lazy"
+                  className="h-full w-full object-cover object-center transition duration-700 group-hover:scale-105"
+                  loading={index < 3 ? 'eager' : 'lazy'}
+                  onError={(e) => {
+                    (e.currentTarget as HTMLImageElement).style.display = 'none';
+                  }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-900/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/50 via-transparent to-transparent" />
                 <div className="absolute left-4 top-4 flex items-center gap-2">
                   <span className="rounded-full bg-white/85 px-3 py-1 text-xs font-semibold text-slate-700 dark:bg-slate-900/80 dark:text-slate-100">
                     {project.category}
